@@ -277,10 +277,10 @@ export default function Home() {
             </h2>
 
             <p className="mt-20 max-w-sm text-sm font-semibold leading-6 text-black/75">
-              I&apos;m Lakshmi Priyanka Kotla, a website operations and front-end
-              web developer based in India. I work with WordPress, Elementor,
-              landing pages, responsive fixes, website maintenance, and clean
-              launch-ready execution.
+              I&apos;m Lakshmi Priyanka Kotla, a website operations and
+              front-end web developer based in India. I work with WordPress,
+              Elementor, landing pages, responsive fixes, website maintenance,
+              and clean launch-ready execution.
             </p>
           </div>
 
@@ -288,8 +288,8 @@ export default function Home() {
             <p className="text-sm font-semibold leading-6 text-black/75">
               I help teams build, update, and maintain professional websites
               that look polished, work smoothly, and support real business
-              goals. My work covers Elementor sections, WooCommerce flows, forms,
-              SEO basics, analytics, and tracking setup.
+              goals. My work covers Elementor sections, WooCommerce flows,
+              forms, SEO basics, analytics, and tracking setup.
             </p>
 
             <a
@@ -565,21 +565,36 @@ export default function Home() {
           </div>
 
           <form
-            action="https://formsubmit.co/lakshmipriyankakotla@gmail.com"
+            action="https://api.web3forms.com/submit"
             method="POST"
             className="rounded-[1.6rem] bg-[#18110d] p-5 text-white shadow-2xl shadow-black/10"
           >
             <input
               type="hidden"
-              name="_subject"
-              value="New portfolio enquiry from lakshmi-priyanka.vercel.app"
+              name="access_key"
+              value="a02c746d-c10a-4862-a968-4d3fe473b928"
             />
-            <input type="hidden" name="_template" value="table" />
-            <input type="hidden" name="_captcha" value="false" />
             <input
               type="hidden"
-              name="_next"
+              name="subject"
+              value="New portfolio enquiry from lakshmi-priyanka.vercel.app"
+            />
+            <input
+              type="hidden"
+              name="from_name"
+              value="Lakshmi Priyanka Portfolio"
+            />
+            <input
+              type="hidden"
+              name="redirect"
               value="https://lakshmi-priyanka.vercel.app/"
+            />
+            <input
+              type="checkbox"
+              name="botcheck"
+              className="hidden"
+              tabIndex={-1}
+              autoComplete="off"
             />
 
             <label className="text-xs font-black uppercase tracking-[0.2em] text-white/40">
@@ -623,8 +638,8 @@ export default function Home() {
             </button>
 
             <p className="mt-4 text-xs leading-5 text-white/35">
-              First submission may ask you to confirm your Gmail for FormSubmit.
-              After confirmation, messages will be delivered to your inbox.
+              This form sends directly to lakshmipriyankakotla@gmail.com through
+              Web3Forms.
             </p>
           </form>
         </div>
