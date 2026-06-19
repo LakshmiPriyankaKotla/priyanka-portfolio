@@ -2,7 +2,7 @@
 
 import { FormEvent, useEffect, useRef, useState } from "react";
 
-const WEB3FORMS_ACCESS_KEY ="a02c746d-c10a-4862-a968-4d3fe473b928";
+const WEB3FORMS_ACCESS_KEY: string = "a02c746d-c10a-4862-a968-4d3fe473b928";
 
 const services = [
   {
@@ -283,7 +283,7 @@ export default function Home() {
 
     if (
       !WEB3FORMS_ACCESS_KEY ||
-      WEB3FORMS_ACCESS_KEY === "PASTE_YOUR_WEB3FORMS_ACCESS_KEY_HERE"
+      WEB3FORMS_ACCESS_KEY === "a02c746d-c10a-4862-a968-4d3fe473b928"
     ) {
       setFormStatus("error");
       setFormMessage("Please add your Web3Forms access key before testing.");
