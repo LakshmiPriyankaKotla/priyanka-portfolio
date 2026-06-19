@@ -193,17 +193,17 @@ export default function Home() {
 
       document.documentElement.style.setProperty(
         "--hero-shift",
-        `${Math.min(scrollY * 0.12, 90)}px`
+        `${Math.min(scrollY * 0.08, 70)}px`
       );
 
       document.documentElement.style.setProperty(
         "--hero-fade",
-        `${Math.max(1 - scrollY / 620, 0.2)}`
+        `${Math.max(1 - scrollY / 760, 0.3)}`
       );
 
       document.documentElement.style.setProperty(
         "--hero-scale",
-        `${Math.max(1 - scrollY / 8000, 0.965)}`
+        `${Math.max(1 - scrollY / 10000, 0.975)}`
       );
 
       document.documentElement.setAttribute("data-scroll-direction", direction);
@@ -246,8 +246,8 @@ export default function Home() {
         });
       },
       {
-        threshold: 0.18,
-        rootMargin: "-45px 0px -90px 0px",
+        threshold: 0.16,
+        rootMargin: "-35px 0px -80px 0px",
       }
     );
 
@@ -283,7 +283,10 @@ export default function Home() {
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    if (!WEB3FORMS_ACCESS_KEY) {
+    if (
+      !WEB3FORMS_ACCESS_KEY ||
+      WEB3FORMS_ACCESS_KEY === "PASTE_YOUR_WEB3FORMS_ACCESS_KEY_HERE"
+    ) {
       setFormStatus("error");
       setFormMessage("Please add your Web3Forms access key before testing.");
       return;
@@ -364,21 +367,21 @@ export default function Home() {
 
         [data-reveal] {
           opacity: 0;
-          transform: translateY(70px) scale(0.965);
-          filter: blur(14px);
+          transform: translateY(56px) scale(0.982);
+          filter: blur(10px);
           transition:
-            opacity 1100ms cubic-bezier(.16,1,.3,1),
-            transform 1100ms cubic-bezier(.16,1,.3,1),
-            filter 1100ms cubic-bezier(.16,1,.3,1);
+            opacity 1000ms cubic-bezier(.16,1,.3,1),
+            transform 1000ms cubic-bezier(.16,1,.3,1),
+            filter 1000ms cubic-bezier(.16,1,.3,1);
           will-change: opacity, transform, filter;
         }
 
         html[data-scroll-direction="up"] [data-reveal]:not(.is-visible) {
-          transform: translateY(-70px) scale(0.965);
+          transform: translateY(-48px) scale(0.982);
         }
 
         html[data-scroll-direction="down"] [data-reveal]:not(.is-visible) {
-          transform: translateY(70px) scale(0.965);
+          transform: translateY(56px) scale(0.982);
         }
 
         [data-reveal].is-visible {
@@ -387,25 +390,17 @@ export default function Home() {
           filter: blur(0);
         }
 
-        [data-reveal="clip"] {
-          clip-path: inset(16% 0 16% 0 round 28px);
-          transition:
-            opacity 1200ms cubic-bezier(.16,1,.3,1),
-            transform 1200ms cubic-bezier(.16,1,.3,1),
-            filter 1200ms cubic-bezier(.16,1,.3,1),
-            clip-path 1200ms cubic-bezier(.16,1,.3,1);
-        }
-
-        [data-reveal="clip"].is-visible {
-          clip-path: inset(0 0 0 0 round 28px);
+        [data-reveal="soft"] {
+          transform: translateY(42px) scale(0.99);
+          filter: blur(8px);
         }
 
         [data-reveal="line"] {
-          transform: translateY(28px);
+          transform: translateY(24px);
           filter: blur(0);
           transition:
-            opacity 900ms cubic-bezier(.16,1,.3,1),
-            transform 900ms cubic-bezier(.16,1,.3,1);
+            opacity 850ms cubic-bezier(.16,1,.3,1),
+            transform 850ms cubic-bezier(.16,1,.3,1);
         }
 
         [data-reveal="line"].is-visible {
@@ -419,42 +414,42 @@ export default function Home() {
         }
 
         .hero-word {
-          animation: heroIn 1000ms cubic-bezier(.16,1,.3,1) both;
+          animation: heroIn 950ms cubic-bezier(.16,1,.3,1) both;
         }
 
         .hero-word.second {
-          animation-delay: 130ms;
+          animation-delay: 120ms;
         }
 
         .floating-mark {
-          animation: floatMark 5.5s ease-in-out infinite;
+          animation: floatMark 6s ease-in-out infinite;
         }
 
         .floating-mark.two {
-          animation-delay: 1.2s;
+          animation-delay: 1.4s;
         }
 
         .marquee-track {
-          animation: marquee 30s linear infinite;
+          animation: marquee 32s linear infinite;
         }
 
         .premium-card {
-          transform: perspective(900px) translateZ(0);
+          transform: translateY(0);
           transition:
-            transform 700ms cubic-bezier(.16,1,.3,1),
-            box-shadow 700ms cubic-bezier(.16,1,.3,1),
-            border-color 700ms cubic-bezier(.16,1,.3,1);
+            transform 650ms cubic-bezier(.16,1,.3,1),
+            box-shadow 650ms cubic-bezier(.16,1,.3,1),
+            border-color 650ms cubic-bezier(.16,1,.3,1);
         }
 
         .premium-card:hover {
-          transform: perspective(900px) translateY(-10px) rotateX(2deg);
+          transform: translateY(-8px);
         }
 
         @keyframes heroIn {
           from {
             opacity: 0;
-            transform: translateY(64px) scale(.96);
-            filter: blur(16px);
+            transform: translateY(46px) scale(.985);
+            filter: blur(12px);
           }
           to {
             opacity: 1;
@@ -468,13 +463,37 @@ export default function Home() {
             transform: translateY(0) rotate(0deg);
           }
           50% {
-            transform: translateY(-14px) rotate(8deg);
+            transform: translateY(-12px) rotate(8deg);
           }
         }
 
         @keyframes marquee {
           from { transform: translateX(0); }
           to { transform: translateX(-50%); }
+        }
+
+        @media (max-width: 767px) {
+          .hero-title {
+            letter-spacing: -0.045em !important;
+            line-height: 0.92 !important;
+          }
+
+          .hero-motion {
+            transform: translateY(calc(var(--hero-shift) * 0.45)) scale(1);
+          }
+
+          [data-reveal] {
+            transform: translateY(32px) scale(0.99);
+            filter: blur(6px);
+          }
+
+          html[data-scroll-direction="up"] [data-reveal]:not(.is-visible) {
+            transform: translateY(-28px) scale(0.99);
+          }
+
+          html[data-scroll-direction="down"] [data-reveal]:not(.is-visible) {
+            transform: translateY(32px) scale(0.99);
+          }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -493,7 +512,6 @@ export default function Home() {
             transform: none !important;
             filter: none !important;
             transition: none !important;
-            clip-path: none !important;
           }
         }
       `}</style>
@@ -502,7 +520,7 @@ export default function Home() {
         <div className="scroll-progress h-full w-full bg-[#111111]" />
       </div>
 
-      <header className="fixed left-0 right-0 top-4 z-50 mx-auto flex w-fit items-center gap-1 rounded-full border border-white/20 bg-[#111111] px-2 py-2 text-white shadow-2xl shadow-black/20">
+      <header className="fixed left-0 right-0 top-4 z-50 mx-auto flex w-[calc(100%-28px)] max-w-fit items-center justify-between gap-1 rounded-full border border-white/20 bg-[#111111] px-2 py-2 text-white shadow-2xl shadow-black/20 md:w-fit">
         <a
           href="#home"
           className="rounded-full px-4 py-2 text-sm font-black tracking-tight"
@@ -537,43 +555,43 @@ export default function Home() {
 
       <section
         id="home"
-        className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-5 pb-20 pt-28 text-center"
+        className="relative flex min-h-[96svh] flex-col items-center justify-center overflow-hidden px-5 pb-16 pt-28 text-center md:min-h-screen md:pb-20 md:pt-28"
       >
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.28),transparent_36%,rgba(233,228,218,0.35)_68%,transparent)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.32),transparent_36%,rgba(233,228,218,0.38)_68%,transparent)]" />
 
-        <div className="floating-mark absolute left-[10%] top-[22%] text-5xl font-black text-[#CFC9C1] md:text-7xl">
+        <div className="floating-mark absolute left-[7%] top-[24%] text-4xl font-black text-[#CFC9C1] md:left-[10%] md:top-[22%] md:text-7xl">
           ✦
         </div>
 
-        <div className="floating-mark two absolute right-[12%] top-[30%] rotate-12 text-4xl font-black text-[#CFC9C1] md:text-6xl">
+        <div className="floating-mark two absolute right-[8%] top-[32%] rotate-12 text-3xl font-black text-[#CFC9C1] md:right-[12%] md:top-[30%] md:text-6xl">
           ✦
         </div>
 
-        <div className="hero-motion relative z-10">
-          <p className="mb-5 rounded-full border border-[#111111]/10 bg-white/70 px-4 py-2 text-xs font-black uppercase tracking-[0.22em] text-[#111111]/60 shadow-sm backdrop-blur">
+        <div className="hero-motion relative z-10 w-full">
+          <p className="mx-auto mb-5 w-fit rounded-full border border-[#111111]/10 bg-white/75 px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-[#111111]/60 shadow-sm backdrop-blur md:text-xs">
             WordPress · Elementor · Front-End
           </p>
 
-          <h1 className="max-w-6xl text-[4rem] font-black uppercase leading-[0.82] tracking-[-0.085em] md:text-[7.5rem] lg:text-[10rem]">
-            <span className="hero-word block">Website</span>
-            <span className="hero-word second block">Developer</span>
+          <h1 className="hero-title mx-auto max-w-6xl text-[4.35rem] font-black leading-[0.9] tracking-[-0.055em] md:text-[7.7rem] md:leading-[0.88] lg:text-[9.8rem]">
+            <span className="hero-word block normal-case">Website</span>
+            <span className="hero-word second block normal-case">Developer</span>
           </h1>
 
-          <div className="mx-auto mt-8 flex h-28 w-28 items-center justify-center rounded-[1.7rem] bg-[#111111] text-4xl font-black text-[#F7F5F0] shadow-2xl md:h-36 md:w-36 md:text-5xl">
+          <div className="mx-auto mt-8 flex h-24 w-24 items-center justify-center rounded-[1.45rem] bg-[#111111] text-3xl font-black text-[#F7F5F0] shadow-2xl md:h-36 md:w-36 md:rounded-[1.7rem] md:text-5xl">
             LP
           </div>
         </div>
 
         <div
-          data-reveal="clip"
-          className="relative z-10 mt-28 grid w-full max-w-6xl gap-10 text-left md:grid-cols-[0.72fr_1fr] md:items-end"
+          data-reveal="soft"
+          className="relative z-10 mt-20 grid w-full max-w-6xl gap-8 text-left md:mt-28 md:grid-cols-[0.72fr_1fr] md:items-end md:gap-10"
         >
           <div>
-            <h2 className="text-4xl font-black tracking-[-0.05em] md:text-5xl">
+            <h2 className="text-3xl font-black tracking-[-0.04em] md:text-5xl">
               Hey!
             </h2>
 
-            <p className="mt-20 max-w-sm text-sm font-semibold leading-6 text-[#111111]/75">
+            <p className="mt-8 max-w-sm text-sm font-semibold leading-6 text-[#111111]/72 md:mt-20">
               I&apos;m Lakshmi Priyanka Kotla, a website operations and
               front-end web developer based in India. I create WordPress,
               Elementor, landing pages, responsive fixes, magazine templates,
@@ -582,7 +600,7 @@ export default function Home() {
           </div>
 
           <div className="md:ml-auto md:max-w-md">
-            <p className="text-sm font-semibold leading-6 text-[#111111]/75">
+            <p className="text-sm font-semibold leading-6 text-[#111111]/72">
               I help teams build, update, and maintain professional websites
               that look polished, work smoothly, and support real business
               goals. My work covers Elementor sections, WooCommerce flows,
@@ -605,15 +623,15 @@ export default function Home() {
 
         <p
           data-reveal="line"
-          className="relative z-10 mt-28 max-w-3xl text-center text-2xl font-black leading-tight tracking-[-0.04em] text-[#111111]/22 md:text-4xl"
+          className="relative z-10 mt-16 max-w-3xl text-center text-xl font-black leading-tight tracking-[-0.035em] text-[#111111]/22 md:mt-28 md:text-4xl"
         >
           From pageant platforms to magazines, agency websites, foundations, and
           fashion brands — I build digital pages with clarity, speed, and style.
         </p>
       </section>
 
-      <section className="overflow-hidden border-y border-[#111111]/10 bg-[#111111] py-5 text-[#F7F5F0]">
-        <div className="marquee-track flex w-max gap-10 whitespace-nowrap text-sm font-black uppercase tracking-[0.25em]">
+      <section className="overflow-hidden border-y border-[#111111]/10 bg-[#111111] py-4 text-[#F7F5F0] md:py-5">
+        <div className="marquee-track flex w-max gap-10 whitespace-nowrap text-xs font-black uppercase tracking-[0.24em] md:text-sm">
           {Array.from({ length: 2 }).map((_, groupIndex) => (
             <div key={groupIndex} className="flex gap-10">
               {[
@@ -634,30 +652,30 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="services" className="px-5 py-24">
+      <section id="services" className="px-5 py-20 md:py-24">
         <div className="mx-auto max-w-6xl">
           <h2
             data-reveal="line"
-            className="text-5xl font-black tracking-[-0.06em] md:text-6xl"
+            className="text-4xl font-black tracking-[-0.05em] md:text-6xl"
           >
             Services
           </h2>
 
-          <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-10 grid gap-4 md:mt-12 md:grid-cols-2 md:gap-5 lg:grid-cols-4">
             {services.map((service, index) => (
               <div
-                data-reveal="clip"
+                data-reveal="soft"
                 key={service.title}
-                className="premium-card group min-h-[260px] rounded-[2rem] border border-[#111111]/10 bg-white p-6 shadow-sm hover:shadow-xl"
+                className="premium-card group min-h-[235px] rounded-[1.6rem] border border-[#111111]/10 bg-white p-5 shadow-sm hover:shadow-xl md:min-h-[260px] md:rounded-[2rem] md:p-6"
               >
                 <p className="text-sm font-black text-[#111111]/35">
                   0{index + 1}
                 </p>
-                <div className="mt-6 h-1 w-14 rounded-full bg-[#C9B79C]" />
-                <h3 className="mt-8 text-2xl font-black tracking-[-0.04em]">
+                <div className="mt-5 h-1 w-12 rounded-full bg-[#C9B79C] md:mt-6 md:w-14" />
+                <h3 className="mt-7 text-xl font-black tracking-[-0.04em] md:mt-8 md:text-2xl">
                   {service.title}
                 </h3>
-                <p className="mt-3 text-xs font-black uppercase tracking-[0.16em] text-[#111111]/35">
+                <p className="mt-3 text-[10px] font-black uppercase tracking-[0.16em] text-[#111111]/35 md:text-xs">
                   {service.meta}
                 </p>
                 <p className="mt-5 text-sm font-semibold leading-6 text-[#111111]/60">
@@ -669,14 +687,14 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="projects" className="px-5 py-16">
+      <section id="projects" className="px-5 py-14 md:py-16">
         <div className="mx-auto max-w-6xl">
           <div
-            data-reveal="clip"
-            className="mb-10 flex flex-col gap-5 md:flex-row md:items-end md:justify-between"
+            data-reveal="soft"
+            className="mb-9 flex flex-col gap-5 md:mb-10 md:flex-row md:items-end md:justify-between"
           >
             <div>
-              <h2 className="text-5xl font-black leading-[0.88] tracking-[-0.06em] md:text-6xl">
+              <h2 className="text-4xl font-black leading-[0.9] tracking-[-0.05em] md:text-6xl md:leading-[0.88]">
                 Featured
                 <br />
                 Projects
@@ -696,17 +714,17 @@ export default function Home() {
             </button>
           </div>
 
-          <div className="grid gap-7 md:grid-cols-2">
+          <div className="grid gap-5 md:grid-cols-2 md:gap-7">
             {featuredProjects.map((project, index) => (
               <button
-                data-reveal="clip"
+                data-reveal="soft"
                 key={project.title}
                 type="button"
                 onClick={() => openProjects(project)}
                 className="group text-left"
               >
                 <div
-                  className={`premium-card relative min-h-[300px] overflow-hidden rounded-[2rem] border p-5 shadow-lg group-hover:shadow-2xl ${
+                  className={`premium-card relative min-h-[260px] overflow-hidden rounded-[1.6rem] border p-4 shadow-lg group-hover:shadow-2xl md:min-h-[300px] md:rounded-[2rem] md:p-5 ${
                     index % 4 === 0
                       ? "border-[#111111] bg-[#111111] text-[#F7F5F0]"
                       : index % 4 === 1
@@ -716,12 +734,12 @@ export default function Home() {
                       : "border-[#DDD8CD] bg-[#F2EFE8] text-[#111111]"
                   }`}
                 >
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(255,255,255,0.28),transparent_22%),radial-gradient(circle_at_80%_85%,rgba(0,0,0,0.05),transparent_24%)]" />
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(255,255,255,0.25),transparent_22%),radial-gradient(circle_at_80%_85%,rgba(0,0,0,0.05),transparent_24%)]" />
 
-                  <div className="relative flex h-full min-h-[260px] flex-col justify-between rounded-[1.5rem] border border-white/20 bg-white/10 p-5 backdrop-blur-sm">
+                  <div className="relative flex h-full min-h-[228px] flex-col justify-between rounded-[1.25rem] border border-white/20 bg-white/10 p-5 backdrop-blur-sm md:min-h-[260px] md:rounded-[1.5rem]">
                     <div className="flex items-center justify-between gap-4">
                       <span
-                        className={`rounded-full px-3 py-1 text-xs font-black ${
+                        className={`rounded-full px-3 py-1 text-[10px] font-black md:text-xs ${
                           index % 4 === 0
                             ? "bg-[#F7F5F0] text-[#111111]"
                             : "bg-[#111111] text-[#F7F5F0]"
@@ -735,7 +753,7 @@ export default function Home() {
                     </div>
 
                     <div>
-                      <h3 className="text-3xl font-black tracking-[-0.04em] md:text-4xl">
+                      <h3 className="text-2xl font-black tracking-[-0.04em] md:text-4xl">
                         {project.title}
                       </h3>
 
@@ -743,7 +761,7 @@ export default function Home() {
                         {project.description}
                       </p>
 
-                      <p className="mt-6 text-xs font-black uppercase tracking-[0.18em] opacity-55">
+                      <p className="mt-6 text-[10px] font-black uppercase tracking-[0.18em] opacity-55 md:text-xs">
                         Open project details
                       </p>
                     </div>
@@ -755,21 +773,21 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="px-5 py-24">
+      <section className="px-5 py-20 md:py-24">
         <div className="mx-auto max-w-6xl">
           <h2
             data-reveal="line"
-            className="text-5xl font-black tracking-[-0.06em] md:text-6xl"
+            className="text-4xl font-black tracking-[-0.05em] md:text-6xl"
           >
             Work Strengths
           </h2>
 
-          <div className="mt-10 grid gap-5 md:grid-cols-4">
+          <div className="mt-10 grid gap-4 md:grid-cols-4 md:gap-5">
             {strengths.map((item, index) => (
               <div
-                data-reveal="clip"
+                data-reveal="soft"
                 key={item.title}
-                className={`premium-card flex min-h-[240px] flex-col justify-between rounded-[1.8rem] border border-[#111111]/10 p-6 ${
+                className={`premium-card flex min-h-[215px] flex-col justify-between rounded-[1.6rem] border border-[#111111]/10 p-5 md:min-h-[240px] md:rounded-[1.8rem] md:p-6 ${
                   index === 0
                     ? "bg-[#111111] text-[#F7F5F0]"
                     : index === 1
@@ -785,7 +803,7 @@ export default function Home() {
 
                 <div>
                   <div
-                    className={`mb-3 h-10 w-10 rounded-full ${
+                    className={`mb-3 h-9 w-9 rounded-full md:h-10 md:w-10 ${
                       index === 0 ? "bg-[#F7F5F0]" : "bg-[#111111]"
                     }`}
                   />
@@ -799,20 +817,20 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="toolkit" className="px-5 py-16">
+      <section id="toolkit" className="px-5 py-14 md:py-16">
         <div className="mx-auto max-w-6xl">
           <h2
             data-reveal="line"
-            className="text-5xl font-black tracking-[-0.06em] md:text-6xl"
+            className="text-4xl font-black tracking-[-0.05em] md:text-6xl"
           >
             Toolkit
           </h2>
 
-          <div data-reveal="clip" className="mt-10 flex flex-wrap gap-3">
+          <div data-reveal="soft" className="mt-10 flex flex-wrap gap-3">
             {tools.map((tool, index) => (
               <span
                 key={tool}
-                className={`rounded-full border border-[#111111]/10 px-4 py-2 text-sm font-black shadow-sm transition hover:-translate-y-1 ${
+                className={`rounded-full border border-[#111111]/10 px-4 py-2 text-xs font-black shadow-sm transition hover:-translate-y-1 md:text-sm ${
                   index % 4 === 0
                     ? "bg-[#111111] text-[#F7F5F0]"
                     : index % 4 === 1
@@ -829,21 +847,21 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="px-5 py-24">
+      <section className="px-5 py-20 md:py-24">
         <div className="mx-auto max-w-6xl">
           <h2
             data-reveal="line"
-            className="text-5xl font-black tracking-[-0.06em] md:text-6xl"
+            className="text-4xl font-black tracking-[-0.05em] md:text-6xl"
           >
             Thoughts
           </h2>
 
-          <div className="mt-10 grid gap-5 md:grid-cols-3">
+          <div className="mt-10 grid gap-4 md:grid-cols-3 md:gap-5">
             {thoughts.map((thought, index) => (
               <div
-                data-reveal="clip"
+                data-reveal="soft"
                 key={thought.title}
-                className={`premium-card min-h-[280px] rounded-[1.8rem] border border-[#111111]/10 p-6 shadow-sm ${
+                className={`premium-card min-h-[250px] rounded-[1.6rem] border border-[#111111]/10 p-5 shadow-sm md:min-h-[280px] md:rounded-[1.8rem] md:p-6 ${
                   index === 0
                     ? "bg-white text-[#111111]"
                     : index === 1
@@ -851,11 +869,11 @@ export default function Home() {
                     : "bg-[#ECE7DE] text-[#111111]"
                 }`}
               >
-                <p className="mb-16 text-xs font-black uppercase tracking-[0.2em] opacity-40">
+                <p className="mb-14 text-xs font-black uppercase tracking-[0.2em] opacity-40 md:mb-16">
                   Note 0{index + 1}
                 </p>
 
-                <h3 className="text-3xl font-black leading-none tracking-[-0.05em]">
+                <h3 className="text-2xl font-black leading-none tracking-[-0.05em] md:text-3xl">
                   {thought.title}
                 </h3>
 
@@ -868,13 +886,13 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="contact" className="px-5 py-20">
+      <section id="contact" className="px-5 py-16 md:py-20">
         <div
-          data-reveal="clip"
+          data-reveal="soft"
           className="mx-auto grid max-w-6xl gap-10 md:grid-cols-[0.9fr_1.1fr] md:items-start"
         >
           <div>
-            <h2 className="text-5xl font-black tracking-[-0.06em] md:text-6xl">
+            <h2 className="text-4xl font-black tracking-[-0.05em] md:text-6xl">
               Let&apos;s talk.
             </h2>
 
@@ -884,7 +902,7 @@ export default function Home() {
               I&apos;ll get back to you.
             </p>
 
-            <div className="mt-12 flex gap-3">
+            <div className="mt-8 flex gap-3 md:mt-12">
               <a
                 href="mailto:lakshmipriyankakotla@gmail.com"
                 className="flex h-9 w-9 items-center justify-center rounded-lg border border-[#111111]/10 bg-white text-sm font-black transition hover:bg-[#111111] hover:text-white"
@@ -914,7 +932,7 @@ export default function Home() {
 
           <form
             onSubmit={handleSubmit}
-            className="rounded-[1.8rem] bg-[#111111] p-5 text-white shadow-2xl shadow-black/10"
+            className="rounded-[1.6rem] bg-[#111111] p-5 text-white shadow-2xl shadow-black/10 md:rounded-[1.8rem]"
           >
             <input
               type="checkbox"
@@ -925,7 +943,7 @@ export default function Home() {
             />
 
             {formStatus === "success" ? (
-              <div className="rounded-[1.4rem] bg-[#C9B79C] p-6 text-[#111111]">
+              <div className="rounded-[1.35rem] bg-[#C9B79C] p-6 text-[#111111]">
                 <p className="text-xs font-black uppercase tracking-[0.22em] text-[#111111]/40">
                   Message Sent
                 </p>
@@ -1001,9 +1019,9 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="relative overflow-hidden bg-[#111111] px-5 py-20 text-white">
+      <footer className="relative overflow-hidden bg-[#111111] px-5 py-16 text-white md:py-20">
         <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-[1fr_1fr_1fr]">
-          <h2 className="text-5xl font-black leading-[0.9] tracking-[-0.06em]">
+          <h2 className="text-4xl font-black leading-[0.92] tracking-[-0.05em] md:text-5xl md:leading-[0.9]">
             Websites
             <br />
             built
@@ -1058,20 +1076,20 @@ export default function Home() {
           </div>
         </div>
 
-        <p className="pointer-events-none absolute -bottom-10 left-1/2 -translate-x-1/2 text-[8rem] font-black uppercase leading-none tracking-[-0.1em] text-white/[0.04] md:text-[17rem]">
+        <p className="pointer-events-none absolute -bottom-6 left-1/2 -translate-x-1/2 text-[7rem] font-black uppercase leading-none tracking-[-0.1em] text-white/[0.04] md:-bottom-10 md:text-[17rem]">
           Priyanka
         </p>
       </footer>
 
       {projectsOpen && (
         <div className="fixed inset-0 z-[100] bg-[#111111]/70 p-3 backdrop-blur-xl md:p-6">
-          <div className="mx-auto flex h-full max-w-7xl flex-col overflow-hidden rounded-[2rem] bg-[#F7F5F0] text-[#111111] shadow-2xl">
+          <div className="mx-auto flex h-[100dvh] max-w-7xl flex-col overflow-hidden rounded-[1.4rem] bg-[#F7F5F0] text-[#111111] shadow-2xl md:h-full md:rounded-[2rem]">
             <div className="flex items-center justify-between gap-4 border-b border-[#111111]/10 px-5 py-4 md:px-7">
               <div>
                 <p className="text-xs font-black uppercase tracking-[0.22em] text-[#111111]/40">
                   View All
                 </p>
-                <h3 className="mt-1 text-2xl font-black tracking-[-0.04em]">
+                <h3 className="mt-1 text-xl font-black tracking-[-0.04em] md:text-2xl">
                   Complete Project Overview
                 </h3>
               </div>
@@ -1079,7 +1097,7 @@ export default function Home() {
               <button
                 type="button"
                 onClick={() => setProjectsOpen(false)}
-                className="flex h-11 w-11 items-center justify-center rounded-full bg-[#111111] text-lg font-black text-white transition hover:bg-[#333]"
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#111111] text-lg font-black text-white transition hover:bg-[#333] md:h-11 md:w-11"
                 aria-label="Close all projects"
               >
                 ×
@@ -1087,7 +1105,7 @@ export default function Home() {
             </div>
 
             <div className="grid min-h-0 flex-1 gap-0 lg:grid-cols-[360px_1fr]">
-              <div className="min-h-0 overflow-y-auto border-r border-[#111111]/10 p-4 md:p-5">
+              <div className="min-h-0 max-h-[36dvh] overflow-y-auto border-b border-[#111111]/10 p-4 md:p-5 lg:max-h-none lg:border-b-0 lg:border-r">
                 <div className="grid gap-3">
                   {projects.map((project, index) => {
                     const isActive = activeProject.title === project.title;
@@ -1097,7 +1115,7 @@ export default function Home() {
                         key={project.title}
                         type="button"
                         onClick={() => setActiveProject(project)}
-                        className={`rounded-[1.3rem] border p-4 text-left transition ${
+                        className={`rounded-[1.2rem] border p-4 text-left transition md:rounded-[1.3rem] ${
                           isActive
                             ? "border-[#111111] bg-[#111111] text-white"
                             : "border-[#111111]/10 bg-white text-[#111111] hover:border-[#111111]/30"
@@ -1119,7 +1137,7 @@ export default function Home() {
                           </span>
                         </div>
 
-                        <h4 className="mt-6 text-xl font-black tracking-[-0.04em]">
+                        <h4 className="mt-5 text-lg font-black tracking-[-0.04em] md:mt-6 md:text-xl">
                           {project.title}
                         </h4>
 
@@ -1136,9 +1154,9 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="min-h-0 overflow-y-auto p-5 md:p-8">
-                <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-stretch">
-                  <div className="relative min-h-[360px] overflow-hidden rounded-[2rem] bg-[#111111] p-6 text-white md:min-h-[520px] md:p-8">
+              <div className="min-h-0 overflow-y-auto p-4 md:p-8">
+                <div className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr] lg:items-stretch lg:gap-6">
+                  <div className="relative min-h-[320px] overflow-hidden rounded-[1.6rem] bg-[#111111] p-6 text-white md:min-h-[520px] md:rounded-[2rem] md:p-8">
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(201,183,156,0.35),transparent_22%),radial-gradient(circle_at_90%_80%,rgba(255,255,255,0.12),transparent_26%)]" />
 
                     <div className="relative flex h-full flex-col justify-between">
@@ -1147,13 +1165,13 @@ export default function Home() {
                           {activeProject.type}
                         </span>
 
-                        <span className="text-5xl font-black text-white/10">
+                        <span className="text-4xl font-black text-white/10 md:text-5xl">
                           ↗
                         </span>
                       </div>
 
                       <div>
-                        <h3 className="max-w-2xl text-5xl font-black leading-[0.9] tracking-[-0.07em] md:text-7xl">
+                        <h3 className="max-w-2xl text-4xl font-black leading-[0.92] tracking-[-0.055em] md:text-7xl md:leading-[0.9] md:tracking-[-0.07em]">
                           {activeProject.title}
                         </h3>
 
@@ -1164,13 +1182,13 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <div className="flex flex-col justify-between rounded-[2rem] border border-[#111111]/10 bg-white p-6 md:p-8">
+                  <div className="flex flex-col justify-between rounded-[1.6rem] border border-[#111111]/10 bg-white p-6 md:rounded-[2rem] md:p-8">
                     <div>
                       <p className="text-xs font-black uppercase tracking-[0.22em] text-[#111111]/35">
                         Project Details
                       </p>
 
-                      <h4 className="mt-5 text-3xl font-black tracking-[-0.05em]">
+                      <h4 className="mt-5 text-2xl font-black tracking-[-0.05em] md:text-3xl">
                         Professional website support and execution.
                       </h4>
 
@@ -1219,7 +1237,7 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="mt-6 rounded-[2rem] bg-[#ECE7DE] p-5 md:p-7">
+                <div className="mt-5 rounded-[1.6rem] bg-[#ECE7DE] p-5 md:mt-6 md:rounded-[2rem] md:p-7">
                   <p className="text-xs font-black uppercase tracking-[0.22em] text-[#111111]/35">
                     All Projects
                   </p>
