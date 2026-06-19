@@ -166,6 +166,7 @@ export default function Home() {
   const [formStatus, setFormStatus] = useState<
     "idle" | "submitting" | "success" | "error"
   >("idle");
+
   const [formMessage, setFormMessage] = useState("");
   const [projectsOpen, setProjectsOpen] = useState(false);
   const [activeProject, setActiveProject] = useState(projects[0]);
@@ -226,6 +227,7 @@ export default function Home() {
 
     if (!("IntersectionObserver" in window)) {
       revealItems.forEach((item) => item.classList.add("is-visible"));
+
       return () => {
         window.removeEventListener("scroll", onScroll);
       };
@@ -281,10 +283,7 @@ export default function Home() {
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    if (
-      !WEB3FORMS_ACCESS_KEY ||
-      WEB3FORMS_ACCESS_KEY === "a02c746d-c10a-4862-a968-4d3fe473b928"
-    ) {
+    if (!WEB3FORMS_ACCESS_KEY) {
       setFormStatus("error");
       setFormMessage("Please add your Web3Forms access key before testing.");
       return;
